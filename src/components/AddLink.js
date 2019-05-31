@@ -1,37 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { setItem, getItem } from '../helpers';
+import React, { useState } from 'react';
+import { useInput } from './UseInput';
 
 const AddLink = props => {
-  const [link, setLink] = useState('');
-  const [savedLink, setSavedLink] = useState('');
+  const { value: url, bind: bindUrl, reset: resetUrl } = useInput('');
+  const { value: title, bind: bindTitle, reset: resetTitle } = useInput('');
+  const [articles, setArticles] = useState([]);
 
-  useEffect(() => {
-    setSavedLink(getItem('link'));
-  }, []);
+  const handleSubmit = evt => {
+    evt.preventDefault();
 
-  const handleChange = e => {
-    setLink(e.target.value);
-  };
+    const newArticle = { url, title };
+    setArticles([...articles, newArticle]);
 
-  const handleSubmit = () => {
-    setItem('link', link);
+    resetUrl();
+    resetTitle();
   };
 
   return (
     <>
-      <input
-        type="text"
-        name="link"
-        value={link}
-        placeholder="Link to Read..."
-        onChange={handleChange}
-      />
-      <button type="submit" onClick={handleSubmit}>
-        Add Link
-      </button>
-      <p>{link}</p>
-      <h1>Saved link:</h1>
-      <p>{savedLink}</p>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="url"
+          placeholder="Link to Read..."
+          {...bindUrl}
+        />
+        <input type="text" name="title" placeholder="Title..." {...bindTitle} />
+        <button type="submit">Add Link</button>
+      </form>
+      <ul>
+        <h3>List of Articles</h3>
+        {articles.map(article => (
+          <li key={article.url}>{article.title}</li>
+        ))}
+      </ul>
     </>
   );
 };
