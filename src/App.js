@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import AddLink from './components/AddLink';
 import ListArticles from './components/ListArticles';
-import reactLogo from './images/react.svg';
-import jsLogo from './images/js.png';
+// import Search from './components/Search';
 import { setObject, getObject } from './helpers';
+import reactLogo from './images/react.png';
+import jsLogo from './images/js.jpg';
+import htmlLogo from './images/html.svg';
 
 function App() {
   const [articles, setArticles] = useState([]);
 
-  const techs = ['react', 'js'];
+  const techs = ['react', 'js', 'random'];
 
   useEffect(() => {
     const localStorageArticles = getObject('articles');
@@ -25,14 +27,21 @@ function App() {
     setArticles(newArticleList);
   }
 
+  // function setSearch(search) {
+  //   console.log(search);
+  //   console.log(articles);
+  // }
+
   return (
     <div className="container">
       <AddLink articles={articles} setArticles={setArticles} techs={techs} />
+      {/* <Search setSearch={setSearch} /> */}
       <ListArticles
         articles={articles}
         deleteArticle={deleteArticle}
         reactLogo={reactLogo}
         jsLogo={jsLogo}
+        htmlLogo={htmlLogo}
       />
     </div>
   );

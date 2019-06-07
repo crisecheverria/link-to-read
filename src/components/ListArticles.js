@@ -5,7 +5,8 @@ export default function ListArticles({
   articles,
   deleteArticle,
   reactLogo,
-  jsLogo
+  jsLogo,
+  htmlLogo
 }) {
   return (
     <div className="columns is-multiline">
@@ -17,6 +18,7 @@ export default function ListArticles({
               deleteArticle={deleteArticle}
               reactLogo={reactLogo}
               jsLogo={jsLogo}
+              htmlLogo={htmlLogo}
             />
           </div>
         ))}

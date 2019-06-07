@@ -1,7 +1,24 @@
 import React from 'react';
 
-export default function Card({ article, deleteArticle, reactLogo, jsLogo }) {
+export default function Card({
+  article,
+  deleteArticle,
+  reactLogo,
+  jsLogo,
+  htmlLogo
+}) {
   const { url, title, tech } = article;
+
+  const logo = tech => {
+    switch (tech) {
+      case 'react':
+        return reactLogo;
+      case 'js':
+        return jsLogo;
+      default:
+        return htmlLogo;
+    }
+  };
 
   function removeArticle(url) {
     deleteArticle(url);
@@ -10,7 +27,7 @@ export default function Card({ article, deleteArticle, reactLogo, jsLogo }) {
     <div className="card">
       <div className="card-image">
         <figure className="image">
-          <img src={tech === 'react' ? reactLogo : jsLogo} alt={title} />
+          <img src={logo(tech)} alt={title} />
         </figure>
       </div>
       <div className="card-content">
